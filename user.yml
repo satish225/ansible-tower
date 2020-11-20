@@ -12,10 +12,20 @@
       comment: John Doe
       uid: 1040
       group: admin
-
+  - name: Add group "admin" to remote server
+    group:
+      name: admin
+      gid: 2011
+      state: present
+  - name: Add group "developers" to remote server
+    group:
+      name: developers
+      gid: 2011
+      state: present
   - name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups
     user:
       name: james
       shell: /bin/bash
       groups: admins,developers
       append: yes
+---
