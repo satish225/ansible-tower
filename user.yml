@@ -6,15 +6,15 @@
   gather_facts: no
   connection: ssh
   tasks:
-  - name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+  - name: Add the user 'johnd' with a specific uid and a primary group of 'sudo'
     user:
       name: johnd
       comment: John Doe
       uid: 1040
-      group: admin
+      group: sudo
   - name: Add group "admin" to remote server
     group:
-      name: admin
+      name: sudo
       gid: 2011
       state: present
   - name: Add group "developers" to remote server
@@ -22,8 +22,8 @@
       name: developers
       gid: 2012
       state: present
-  - name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups
+  - name: Add the user 'james' with a bash shell, appending the group 'sudo' and 'developers' to the user's groups
     user:
       name: james
       shell: /bin/bash
-      groups: admin,developers
+      groups: sudo,developers
