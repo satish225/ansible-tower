@@ -11,8 +11,7 @@
       name: johnd
       comment: John Doe
       uid: 1040
-      group: sudo
-  - name: Add group "admin" to remote server
+  - name: Add group "sudo" to remote server
     group:
       name: sudo
       gid: 2011
@@ -26,4 +25,4 @@
     user:
       name: james
       shell: /bin/bash
-      groups: sudo,developers
+    
