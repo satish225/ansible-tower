@@ -10,7 +10,6 @@
     user:
       name: NTTuser
       comment: John Doe
-      uid: 1041
       group: sudo
   - name: Add group "sudo" to remote server
     group:
