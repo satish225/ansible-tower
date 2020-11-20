@@ -10,8 +10,7 @@
      group:
        name: nixadmins
        gid: 2010
-       state: present
-	   
+       state: present	   
    - name: Add user "sysadmin" to remote server
      user:
        name: sysadmin
@@ -24,4 +23,4 @@
        generate_ssh_key: yes
        ssh_key_bits: 2048
        ssh_key_file: .ssh/id_rsa
-...
+ ---
