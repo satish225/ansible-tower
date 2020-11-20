@@ -27,5 +27,3 @@
       name: james
       shell: /bin/bash
       groups: admins,developers
-      append: yes
----
