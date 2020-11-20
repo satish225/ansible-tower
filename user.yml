@@ -1,10 +1,21 @@
 ---
 - hosts: all
-  remote_user: ec2-user
-  sudo: yes
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
   tasks:
-      - name: Add User 
-        user: name=user
-              groups=wheel,dev-team
-       password=usx7b002w0mBw
----
+- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+  user:
+    name: johnd
+    comment: John Doe
+    uid: 1040
+    group: admin
+
+- name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups
+  user:
+    name: james
+    shell: /bin/bash
+    groups: admins,developers
+    append: yes
