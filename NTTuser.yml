@@ -1,0 +1,29 @@
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  connection: ssh
+  tasks:
+  - name: Add the user 'NTTuser' with a specific uid and a primary group of 'sudo'
+    user:
+      name: NTTuser
+      comment: John Doe
+      uid: 1040
+      group: sudo
+  - name: Add group "sudo" to remote server
+    group:
+      name: sudo
+      gid: 2011
+      state: present
+  - name: Add group "developers" to remote server
+    group:
+      name: developers
+      gid: 2012
+      state: present
+  - name: Add the user 'NTTuser1' with a bash shell, appending the group 'sudo' and 'developers' to the user's groups
+    user:
+      name: NTTuser1
+      shell: /bin/bash
+      groups: sudo,developers
