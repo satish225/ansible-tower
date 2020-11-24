@@ -6,19 +6,19 @@
   gather_facts: no
   connection: ssh
   tasks:
-  - name: Add the user 'john' with a specific uid and a primary group of 'sudo'
+  - name: Add the user 'Nttuser1' with a specific uid and a primary group of 'Nttdata'
     user:
-      name: john
-      comment: John Doe
+      name: Nttuser1
+      comment: Devops Engineer
       uid: 1040
-  - name: Add group "sudo" to remote server
+  - name: Add group "Nttdata" to remote server
     group:
-      name: sudo
+      name: Nttdata
       gid: 2011
       state: present
-  - name: Add the user 'james' with a bash shell, appending the group 'sudo' and 'developers' to the user's groups
+  - name: Add the user 'Nttuser2' with a bash shell, appending the group 'Nttdata' and 'developers' to the user's groups
     user:
-      name: james
+      name: Nttuser2
       shell: /bin/bash
   - name: Add group "developers" to remote server
     group:
