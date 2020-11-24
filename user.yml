@@ -10,11 +10,11 @@
     user:
       name: Nttuser1
       comment: Devops Engineer
-      uid: 1040
+      uid: 1050
   - name: Add group "Nttdata" to remote server
     group:
       name: Nttdata
-      gid: 2011
+      gid: 2020
       state: present
   - name: Add the user 'Nttuser2' with a bash shell, appending the group 'Nttdata' and 'developers' to the user's groups
     user:
@@ -23,7 +23,7 @@
   - name: Add group "developers" to remote server
     group:
       name: developers
-      gid: 2012
+      gid: 2021
       state: present
 
     
