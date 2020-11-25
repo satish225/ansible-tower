@@ -1,0 +1,60 @@
+---
+- name: install apache
+  hosts: all
+  become: yes
+  tasks:
+    - name: install httpd
+      package:
+        name: httpd
+        state: present
+      when: ansible_facts['distribution'] == "CentOS"
+    - name: start and enable httpd
+      service:
+        name: httpd
+        enabled: yes
+        state: started
+      when: ansible_facts['distribution'] == "CentOS"
+    - name: install php packages httpd
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - php
+        - php-mysql
+        - php-fpm
+      when: ansible_facts['distribution'] == "CentOS"
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_facts['distribution'] == "CentOS"
+    - name: update Ubuntu packages
+      apt:
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"
+    - name: install apache2 
+      package:
+        name: apache2
+        state: present
+      when: ansible_facts['distribution'] == "Ubuntu"
+    - name: enable and start apache2
+      service:
+        name: apache2
+        enabled: yes
+        state: started
+      when: ansible_facts['distribution'] == "Ubuntu"
+    - name: install php packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - php
+        - libapache2-mod-php
+        - php-mysql
+        - php-cli
+      when: ansible_facts['distribution'] == "Ubuntu"
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_facts['distribution'] == "Ubuntu"
