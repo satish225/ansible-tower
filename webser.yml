@@ -3,11 +3,17 @@
   become: yes
   tasks:
   - name: Installs nginx web server
-    package:
+    apt:
       name: nginx
       state: latest
       update_cache: true
-    when: (ansible_facts['distribution'] == "RedHat" or ansible_facts['distribution'] == "Ubuntu")
+    when: ansible_facts['distribution'] == "Ubuntu"
+  - name: Installs nginx web server
+    yum:
+      name: nginx
+      state: latest
+      update_cache: true
+    when: ansible_facts['distribution'] == "CentOS"
     notify:
     - start nginx
   handlers:
