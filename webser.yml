@@ -5,7 +5,7 @@
   - name: Installs nginx web server
     apt:
       name: nginx
-      state: present
+      state: installed
       update_cache: true
     notify:
     - start nginx
@@ -13,4 +13,4 @@
   - name: start nginx
     service:
       name: nginx
-      state: present
+      state: installed
