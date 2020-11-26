@@ -7,7 +7,6 @@
       name: nginx
       state: latest
       update_cache: true
-    when: ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Ubuntu"
     notify:
     - start nginx
   handlers:
