@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: Installs nginx web server
-    package:
+    apt:
       name: nginx
       state: latest
       update_cache: true
