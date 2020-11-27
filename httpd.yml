@@ -7,13 +7,13 @@
       package:
         name: httpd
         state: present
-      when: ansible_facts['distribution'] == "Redhat"
+      when: ansible_facts['distribution'] == "CentOS"
     - name: start and enable httpd
       service:
         name: httpd
         enabled: yes
         state: started
-      when: ansible_facts['distribution'] == "Redhat"
+      when: ansible_facts['distribution'] == "CentOS"
     - name: install php packages httpd
       package:
         name: "{{ item }}"
@@ -22,12 +22,12 @@
         - php
         - php-mysql
         - php-fpm
-      when: ansible_facts['distribution'] == "Redhat"
+      when: ansible_facts['distribution'] == "CentOS"
     - name: restart httpd
       service:
         name: httpd
         state: restarted
-      when: ansible_facts['distribution'] == "Redhat"
+      when: ansible_facts['distribution'] == "CentOS"
     - name: update Ubuntu packages
       apt:
         update_cache: yes
@@ -53,6 +53,12 @@
         - php-mysql
         - php-cli
       when: ansible_facts['distribution'] == "Ubuntu"
+    - name: copy the phpinfo page
+      copy:
+        src: info.php
+        dest: /var/www/html/info.php
+      notify:
+        - restart and enable apache
     - name: restart apache
       service:
         name: apache2
