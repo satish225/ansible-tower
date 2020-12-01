@@ -51,11 +51,7 @@
       name: myVM
       vm_size: Standard_DS1_v2
       admin_username: azureuser
-      ssh_password_enabled: false
-      ssh_public_keys:
-        - path: /home/azureuser/.ssh/authorized_keys
-          key_data: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWIkmHufhju2shUeuQeYUxWRFo+FKeTGZdnKUtXmw7XKtXJcmvAPx3WVGDO1tD/HssmoDIO/MZu/uSBvaeoUDjNGx1p8CPlwp8wJHMc1cWuLu1ClGE6Ii59W36dnKdxuSk5n6eaPGERKS0CgAhP4qIRjuvAFfggoHBIfCjb/0HXMtXYjA4PxxnhFeq8pqttmFIUFQv1c8d/4F+HpQEuyuhkLALjsYypHBNr5r3N+P+FMFYlS8iONYDJaKq/cxoaIlNwnC3DDG6DTwgmhJjiHYkjFilCvpa8ObuLTIlsNSyYGOBFD0440erp3tAx2GAPbGPfYWG1apAyzEB2i6KJr9d azureuser@AppPackTestVM.NTT-INC-Global.cloud
-      network_interfaces: myNIC
+      admin_password: Welcome2Azure
       image:
         offer: CentOS
         publisher: OpenLogic
