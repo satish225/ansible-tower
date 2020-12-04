@@ -62,10 +62,6 @@
       name: git
       state: present
       update_cache: yes
-  - name: Update all packages to their latest version
-    apt:
-      name: "*"
-      state: latest
   - name: aggiungi chiave GPG
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
