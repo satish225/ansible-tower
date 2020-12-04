@@ -54,7 +54,7 @@
       admin_password: Welcome2Azure
       image:
         offer: UbuntuServer
-        publisher: OpenLogic
+        publisher: Canonical
         sku: '16.04-LTS'
         version: latest
   - name: Install git
