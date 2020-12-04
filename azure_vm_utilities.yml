@@ -62,3 +62,7 @@
       name: git
       state: present
       update_cache: yes
+  - name: Installing Docker 
+    package: 
+      name: docker
+      state: present
