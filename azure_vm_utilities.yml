@@ -58,7 +58,7 @@
         sku: '16.04-LTS'
         version: latest
   - name: Install git
-    yum:
+    apt:
       name: git
       state: present
       update_cache: yes
