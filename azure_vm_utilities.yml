@@ -57,14 +57,6 @@
         publisher: OpenLogic
         sku: '7.5'
         version: latest
-  - name: Install yum utils
-    yum:
-      name: yum-utils
-      state: latest
-  - name: Install device-mapper-persistent-data
-    yum:
-      name: device-mapper-persistent-data
-      state: latest
   - name: Install lvm2
     yum:
       name: lvm2
