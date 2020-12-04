@@ -58,7 +58,7 @@
         sku: '16.04-LTS'
         version: latest
   - name: Install git
-    apt:
+    yum:
       name: git
       state: present
       update_cache: yes
@@ -66,11 +66,11 @@
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
-  - name: aggiungi repository docker
+  - name: adding docker repo
     apt_repository:
       repo: deb https://download.docker.com/linux/ubuntu bionic stable
       state: present
-  - name: installa docker
+  - name: install docker
     apt:
       name: "{{item}}"
       state: latest
@@ -79,7 +79,7 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io  
-  - name: assicurati che docker sia attivo
+  - name: Starting Docker
     service:
       name: docker
       state: started
