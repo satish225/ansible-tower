@@ -63,6 +63,7 @@
       state: present
       update_cache: yes
   - name: Installing Docker 
-    package: 
-      name: docker
+  - name: Installing Docker 
+    get_url: curl -fsSL https://get.docker.com -o get-docker.sh
+      command: sh get-docker.sh
       state: present
