@@ -53,9 +53,9 @@
       admin_username: azureuser
       admin_password: Welcome2Azure
       image:
-        offer: Ubuntu
+        offer: UbuntuServer
         publisher: OpenLogic
-        sku: '7.5'
+        sku: '16.04-LTS'
         version: latest
   - name: Install git
     yum:
