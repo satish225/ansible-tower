@@ -58,21 +58,10 @@
         sku: '16.04-LTS'
         version: latest
   - name: Install git
-    yum:
+    apt:
       name: git
       state: present
       update_cache: yes
-  - name: install dipendenze
-    apt:
-      name: "{{item}}"
-      state: present
-      update_cache: yes
-    loop:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
   - name: aggiungi chiave GPG
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
