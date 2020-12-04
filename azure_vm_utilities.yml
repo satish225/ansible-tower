@@ -53,7 +53,7 @@
       admin_username: azureuser
       admin_password: Welcome2Azure
       image:
-        offer: CentOS
+        offer: Ubuntu
         publisher: OpenLogic
         sku: '7.5'
         version: latest
@@ -62,7 +62,3 @@
       name: git
       state: present
       update_cache: yes
-  - name: Installing Docker 
-    get_url: curl -fsSL https://get.docker.com -o get-docker.sh
-      command: sh get-docker.sh
-      state: present
