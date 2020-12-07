@@ -58,8 +58,6 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
----
-- hosts: all
   remote_user: ansibletower
   become: yes
   become_method: sudo
