@@ -58,10 +58,7 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
-  - name: Install git
-    apt:
-      name: git
-      state: present
+...
 ---
 - hosts: all
   remote_user: ansibletower
