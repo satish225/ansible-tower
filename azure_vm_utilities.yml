@@ -50,7 +50,7 @@
       resource_group: myResourceGroup
       name: myVM
       vm_size: Standard_DS1_v2
-      admin_username: azureuser
+      admin_username: root
       admin_password: Welcome2Azure
       image:
         offer: UbuntuServer
@@ -61,25 +61,11 @@
     apt:
       name: git
       state: present
-      update_cache: yes
-  - name: aggiungi chiave GPG
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      state: present
-  - name: adding docker repo
-    apt_repository:
-      repo: deb https://download.docker.com/linux/ubuntu bionic stable
-      state: present
-  - name: install docker
+  - name: Installing Docker
     apt:
-      name: "{{item}}"
-      state: latest
-      update_cache: yes
-    loop:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io  
-  - name: Starting Docker
+      name: docker.io
+      state: present
+  - name: starting docker service
     service:
       name: docker
       state: started
