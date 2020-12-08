@@ -5,22 +5,22 @@
   tasks:
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: myResourceGroup
-      location: eastus
+      name: IBM_resource
+      location: westus
   - name: Create virtual network
     azure_rm_virtualnetwork:
-      resource_group: myResourceGroup
+      resource_group: IBM_resource
       name: myVnet
       address_prefixes: "10.0.0.0/16"
   - name: Add subnet
     azure_rm_subnet:
-      resource_group: myResourceGroup
+      resource_group: IBM_resource
       name: mySubnet
       address_prefix: "10.0.1.0/24"
       virtual_network: myVnet
   - name: Create public IP address
     azure_rm_publicipaddress:
-      resource_group: myResourceGroup
+      resource_group: IBM_resource
       allocation_method: Static
       name: myPublicIP
     register: output_ip_address
@@ -29,7 +29,7 @@
       msg: "The public IP is {{ output_ip_address.state.ip_address }}."
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
-      resource_group: myResourceGroup
+      resource_group: IBM_resource
       name: myNetworkSecurityGroup
       rules:
         - name: SSH
@@ -40,7 +40,7 @@
           direction: Inbound
   - name: Create virtual network interface card
     azure_rm_networkinterface:
-      resource_group: myResourceGroup
+      resource_group: IBM_resource
       name: myNIC
       virtual_network: myVnet
       subnet: mySubnet
@@ -48,8 +48,8 @@
       security_group: myNetworkSecurityGroup
   - name: Create VM
     azure_rm_virtualmachine:
-      resource_group: myResourceGroup
-      name: IBMtest001
+      resource_group: IBM_resource
+      name: IBMtest123
       vm_size: Standard_DS1_v2
       admin_username: ansibletower
       admin_password: AnsibleTower@123
