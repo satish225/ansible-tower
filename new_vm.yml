@@ -53,6 +53,7 @@
       vm_size: Standard_DS1_v2
       admin_username: ansibletower
       admin_password: AnsibleTower@123
+      network_interfaces: myNIC
       image:
         offer: UbuntuServer
         publisher: Canonical
