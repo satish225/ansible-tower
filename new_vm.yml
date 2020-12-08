@@ -59,9 +59,6 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
-...
-  remote_user: ansibletower
-  become: yes
   become_method: sudo
   gather_facts: yes
   connection: ssh
