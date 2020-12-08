@@ -60,6 +60,9 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
+  - name: Pause for 5 minutes to build app cache
+    pause:
+      minutes: 5
   remote_user: ansibletower
   become: yes
   become_method: sudo
