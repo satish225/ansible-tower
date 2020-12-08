@@ -52,7 +52,7 @@
       name: IBMtest123
       vm_size: Standard_DS1_v2
       admin_username: ansibletower
-      admin_password: AnsibleTower@123
+      admin_password: ansibletower
       network_interfaces: myNIC
       image:
         offer: UbuntuServer
@@ -123,4 +123,3 @@
       name: kubelet
       enabled: yes
 ...
-
