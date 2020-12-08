@@ -51,8 +51,8 @@
       resource_group: myResourceGroup
       name: myVM
       vm_size: Standard_DS1_v2
-      admin_username: root
-      admin_password: Welcome2Azure
+      admin_username: ansibletower
+      admin_password: ansibletower
       image:
         offer: UbuntuServer
         publisher: Canonical
