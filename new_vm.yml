@@ -63,6 +63,7 @@
   - name: Pause for 5 minutes to build app cache
     pause:
       minutes: 5
+  host: ibmtest123.eastus2.cloudapp.azure.com    
   remote_user: ansibletower
   become: yes
   become_method: sudo
