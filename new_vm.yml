@@ -1,6 +1,6 @@
 ---
 - name: Create Azure VM
-  hosts: all
+  hosts: 169.62.142.2
   connection: local
   tasks:
   - name: Create resource group
@@ -65,7 +65,7 @@
       minutes: 1
       
 - name: Adding host for testing
-  hosts: ibmtest123    
+  hosts: ibmtest123.westus.cloudapp.azure.com    
   remote_user: ansibletower
   become: yes
   become_method: sudo
