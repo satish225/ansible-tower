@@ -1,6 +1,6 @@
 ---
 - name: Create Azure VM
-  hosts: ibmtest123.westus.cloudapp.azure.com
+  hosts: all
   connection: local
   tasks:
   - name: Create resource group
