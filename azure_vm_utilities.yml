@@ -59,6 +59,8 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
+- name: azure host
+  hosts: myVM
   remote_user: ansibletower
   become: yes
   become_method: sudo
