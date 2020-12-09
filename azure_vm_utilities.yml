@@ -51,6 +51,7 @@
       resource_group: myResourceGroup
       name: myVM
       vm_size: Standard_DS1_v2
+      network_interfaces: myNIC
       admin_username: ansibletower
       admin_password: ansibletower
       image:
