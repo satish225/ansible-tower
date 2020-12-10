@@ -3,7 +3,7 @@
   #roles:
   #  - azure.azure_preview_modules
   vars:
-    resource_group: "{{ resource_group_name }}"
+    resource_group: IBM_Test
     lab_name: myLab
     vn_name: myLabVirtualNetwork
     vm_name: myLabVm
