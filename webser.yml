@@ -104,12 +104,6 @@
         port: 22
         host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
         timeout: 60
-      remote_user: azureuser
-      become: yes
-      become_method: sudo
-      become_user: root
-      gather_facts: yes
-      connection: ssh
         
     - name: Make the Swap inactive
       command: swapoff -a
