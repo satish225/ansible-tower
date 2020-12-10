@@ -92,7 +92,7 @@
 
     - name: add azure vm into host
       add_host:
-        name: Demo Inventory
+        name: myTesVM
         ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
         ansible_connection: ssh  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
