@@ -104,7 +104,7 @@
         port: 22
         host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
         timeout: 60
-    - hosts: new_azure_vm
+    - hosts: localhost
       remote_user: azureuser
       become: yes
       become_method: sudo
