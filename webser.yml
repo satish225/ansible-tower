@@ -2,7 +2,7 @@
 # ===========
 # This plabyook covers below scenario:
 # 1. create a VM with below conditions
-#    - private IP
+#    - public IP
 #    - vnet in another resource group
 # 1. clone a java application, build it
 # 1. install tomcat, deploy the java app to newly created VM
@@ -82,7 +82,7 @@
         virtual_network_resource_group: "{{ resource_group_vnet }}"
         virtual_network_name: "{{ vnet_name }}"
         subnet_name: "{{ subnet_name }}"
-        public_ip_allocation_method: Disabled
+        public_ip_allocation_method: Enabled 
         image:
           offer: UbuntuServer
           publisher: Canonical
@@ -93,17 +93,24 @@
     - name: add azure vm into host
       add_host:
         name: new_azure_vm
-        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
+        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
         ansible_connection: paramiko  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
 
-    - name: wait for the WinRM port to come online
+    - name: wait for the port to come online
       wait_for:
         port: 22
-        host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
+        host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
         timeout: 60
+    - hosts: new_azure_vm
+      remote_user: azureuser
+      become: yes
+      become_method: sudo
+      become_user: root
+      gather_facts: yes
+      connection: ssh
         
     - name: Make the Swap inactive
       command: swapoff -a
