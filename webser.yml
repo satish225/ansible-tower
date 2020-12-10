@@ -92,9 +92,9 @@
 
     - name: add azure vm into host
       add_host:
-        name: new_azure_vm
+        name: Demo Inventory
         ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
-        ansible_connection: paramiko  # not guaranteed to have sshpass...
+        ansible_connection: ssh  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
