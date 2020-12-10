@@ -101,43 +101,77 @@
 
     - name: wait for the WinRM port to come online
       wait_for:
-        port: 22
+        port: 22   - name: Make the Swap inactive
+     command: swapoff -a
+
+   - name: Remove Swap entry from /etc/fstab.
+     lineinfile:
+       dest: /etc/fstab
+       regexp: swap
+       state: absent
+
+   - name: Installing Prerequisites for Kubernetes
+     apt: 
+       name:
+         - apt-transport-https
+         - ca-certificates
+         - curl
+         - gnupg-agent
+         - vim
+         - software-properties-common
+       state: present
+
+   - name: Add Docker’s official GPG key
+     apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg
+       state: present
+
+   - name: Add Docker Repository
+     apt_repository:
+       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+       state: present
+       filename: docker
+       mode: 0600
+
+   - name: Install Docker Engine.
+     apt: 
+       name:
+         - docker-ce
+         - docker-ce-cli
+         - containerd.io
+       state: present
+
+   - name: Enable service docker, and enable persistently
+     service: 
+       name: docker
+       enabled: yes
+
+   - name: Add Google official GPG key
+     apt_key:
+       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       state: present
+
+   - name: Add Kubernetes Repository
+     apt_repository:
+       repo: deb http://apt.kubernetes.io/ kubernetes-xenial main 
+       state: present
+       filename: kubernetes
+       mode: 0600
+
+   - name: Installing Kubernetes Cluster Packages.
+     apt: 
+       name:
+         - kubeadm
+         - kubectl
+         - kubelet
+       state: present
+
+   - name: Enable service kubelet, and enable persistently
+     service: 
+       name: kubelet
+       enabled: yes
+...
+
         host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
-        timeout: 600
-
-    - name: Git Clone
-      git:
-        repo: "{{ repo_url }}"
-        dest: "{{ workspace }}"
-
-    - name: build sample app
-      shell: mvn package chdir="{{ workspace }}"
-
-    - block:
-      - name: Update repositories cache and install "tomcat8" package
-        become: true
-        apt:
-          name: tomcat8
-          update_cache: yes
-
-      - name: Install "tomcat8-admin" package
-        become: true
-        apt:
-          name: tomcat8-admin
-
-      - name: copy app to azure vm
-        become: true
-        copy:
-          src: "{{ workspace }}/target/demo-0.0.1-SNAPSHOT.war"
-          dest: /var/lib/tomcat8/webapps/hello.war
-          force: yes
-          mode: 0755
-
-      - name: Start and enable Tomcat service
-        become: true
-        systemd:
-          name: tomcat8
-          state: started
-          enabled: true
-          daemon_reload: true
-      delegate_to: new_azure_vm
+        timeout: 60
+    
