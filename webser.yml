@@ -82,7 +82,7 @@
         virtual_network_resource_group: "{{ resource_group_vnet }}"
         virtual_network_name: "{{ vnet_name }}"
         subnet_name: "{{ subnet_name }}"
-        public_ip_allocation_method: Dynamic 
+        public_ip_allocation_method: Disabled 
         image:
           offer: UbuntuServer
           publisher: Canonical
@@ -93,7 +93,7 @@
     - name: add azure vm into host
       add_host:
         name: Demo Inventory
-        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
+        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
         ansible_connection: ssh  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
         ansible_password: "{{ admin_password }}"
@@ -102,7 +102,7 @@
     - name: wait for the port to come online
       wait_for:
         port: 22
-        host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
+        host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
         timeout: 60
         
     - name: Make the Swap inactive
