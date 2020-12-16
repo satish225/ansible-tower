@@ -1,6 +1,6 @@
 ---
 - name: Create Azure VM
-  hosts: all
+  hosts: localhost
   vars_prompt:
     - name: vm_name
       prompt: What is your vm_name?
