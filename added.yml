@@ -83,7 +83,7 @@
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
 - name: azure host
-  hosts: "{{ vm_name }}"
+  hosts: ansiblevm
   remote_user: "{{ admin_username }}"
   become: yes
   become_method: sudo
