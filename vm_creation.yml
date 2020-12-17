@@ -26,6 +26,7 @@
     workspace: ~/src/helloworld
     admin_username: azureuser
     admin_password: Password@123
+
 #  roles:
 #    - azure.azure_preview_modules
   tasks:
@@ -41,6 +42,16 @@
         name: "{{ vnet_name }}"
         address_prefixes: "10.0.0.0/16"
 
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: {{ resource_group_vm }}
+        allocation_method: Static
+        name: myPublicIP
+      register: output_ip_address
+    - name: Dump public IP for VM which will be created
+      debug:
+        msg: "The public IP is {{ output_ip_address.state.ip_address }}." 
+        
     - name: Add subnet
       azure_rm_subnet:
         resource_group: "{{ resource_group_vnet }}"
