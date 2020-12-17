@@ -91,10 +91,10 @@
     vm_name: MyTestVm
     admin_username: azureuser
     admin_password: Password@123  
-  credentials:
-    host: "{{ vm_name }}"
-    username: "{{ admin_username }}"
-    password: "{{ admin_password }}"
+    credentials:
+      host: "{{ vm_name }}"
+      username: "{{ admin_username }}"
+      password: "{{ admin_password }}"
   hosts: "{{ vm_name }}"
   remote_user: "{{ admin_username }}"
   become: yes
