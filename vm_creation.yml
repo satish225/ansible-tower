@@ -16,11 +16,11 @@
   connection: local
   gather_facts: true
   vars:
-    resource_group_vm: MyAzure_group
+    resource_group_vm: "{{ }}"
     resource_group_vnet: myVNetRg
     vnet_name: myVentName
     subnet_name: mysubNet
-    vm_name: myTesVM
+    vm_name: "{{ }}"
     location: eastus
     repo_url: https://github.com/yungezz/helloworld.git
     workspace: ~/src/helloworld
