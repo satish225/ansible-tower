@@ -74,10 +74,6 @@
       debug:
         msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}."
         
-    - name: Dump public IP for VM which will be created
-      debug:
-        msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[1].properties.publicIPAddress }}." 
-        
     - name: add azure vm into host
       add_host:
         name: myTesVM
