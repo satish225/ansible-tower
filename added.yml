@@ -82,7 +82,6 @@
         ansible_user: "{{ admin_username }}"
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
----
 - name: azure host
   hosts: "{{ vm_name }}"
   remote_user: "{{ admin_username }}"
