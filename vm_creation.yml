@@ -93,7 +93,7 @@
         virtual_network_resource_group: "{{ resource_group_vnet }}"
         virtual_network_name: "{{ vnet_name }}"
         subnet_name: "{{ subnet_name }}"
-        public_ip_allocation_method: Disabled 
+        public_ip_allocation_method: Enabled 
         image:
           offer: UbuntuServer
           publisher: Canonical
