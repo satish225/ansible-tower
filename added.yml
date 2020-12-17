@@ -25,6 +25,7 @@
     workspace: ~/src/helloworld
     admin_username: azureuser
     admin_password: Password@123
+    hosts_ansible: ansiblevm
 
 #  roles:
 #    - azure.azure_preview_modules
@@ -83,7 +84,7 @@
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
 - name: azure host
-  hosts: ansiblevm
+  hosts: "{{ hosts_ansible }}"
   remote_user: "{{ admin_username }}"
   become: yes
   become_method: sudo
