@@ -63,7 +63,6 @@
         virtual_network_name: "{{ vnet_name }}"
         subnet_name: "{{ subnet_name }}"
         public_ip_allocation_method: Static
-        register: output_ip_address
         image:
           offer: UbuntuServer
           publisher: Canonical
