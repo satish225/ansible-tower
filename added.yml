@@ -88,7 +88,7 @@
     vm_name: MyTestVm
     admin_username: azureuser
     admin_password: Password@123  
-  hosts: "{{ vm_name }}"
+  hosts: all
   remote_user: "{{ admin_username }}"
   become: yes
   become_method: sudo
