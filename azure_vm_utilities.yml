@@ -23,8 +23,8 @@
     location: eastus
     repo_url: https://github.com/yungezz/helloworld.git
     workspace: ~/src/helloworld
-    admin_username: azureuser
-    admin_password: Password@123
+    admin_username: ansibletower
+    admin_password: Ansibletower@123
 
 #  roles:
 #    - azure.azure_preview_modules
