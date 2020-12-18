@@ -76,7 +76,7 @@
         
     - name: add azure vm into host
       add_host:
-        name: myTesVM
+        name: "{{ vm_name }}"
         ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
         ansible_connection: ssh  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
@@ -105,8 +105,8 @@
 - name: azure host
   vars:
     vm_name: MyTestVm
-    admin_username: azureuser
-    admin_password: Password@123  
+    admin_username: ansibletower
+    admin_password: Ansibletower@123  
     credentials:
       host: "{{ vm_name }}"
       username: "{{ admin_username }}"
