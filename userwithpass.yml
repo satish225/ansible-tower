@@ -1,5 +1,5 @@
 - hosts: all
-  user: root
+  remote_user: ansibletower
   vars:
     # created with:
     # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
