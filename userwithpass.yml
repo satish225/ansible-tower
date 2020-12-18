@@ -1,4 +1,8 @@
 - hosts: all
+  remote_user: ansibletower
+  become: yes
+  become_method: sudo
+  become_user: root
   vars:
     # created with:
     # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
