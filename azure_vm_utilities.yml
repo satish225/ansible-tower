@@ -94,7 +94,7 @@
       name: "{{ uusername }}"
       password: "{{ upassword | password_hash('sha512') }}"  
 #### Utilities installation
-hosts: "{{ vm_name }}"
+
 - name: azure host
   vars:
     vm_name: MyTestVm
