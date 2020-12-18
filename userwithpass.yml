@@ -2,7 +2,7 @@
   vars:
     # created with:
     # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
-    upassword: $1$SomeSalt$UqddPX3r4kH3UL5jq5/ZI.
+    upassword: Cfadmin@1234
     uusername: Cfadmin
   tasks:
   - name: Creating user "{{ uusername }}" with admin access
