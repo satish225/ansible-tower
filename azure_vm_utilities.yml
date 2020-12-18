@@ -75,13 +75,14 @@
         msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}."
         
     - name: add azure vm into host
-      add_host:
-        name: "{{ vm_name }}"
-        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress }}'
+      add_host:         
+      name: MyTestVm
+        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
         ansible_connection: ssh  # not guaranteed to have sshpass...
         ansible_user: "{{ admin_username }}"
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
+        
     - name: Pause for 1 minutes after vm build
       pause:
         minutes: 1
