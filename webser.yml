@@ -1,16 +1,6 @@
 # Description
-# ===========
-# This plabyook covers below scenario:
-# 1. create a VM with below conditions
-#    - public IP
-#    - vnet in another resource group
-# 1. clone a java application, build it
-# 1. install tomcat, deploy the java app to newly created VM
-#
 # Prequisite
 # ===========
-# - git on ansible host
-# - maven on ansible host
 - name: Create Azure VM
   hosts: localhost
   connection: local
@@ -52,6 +42,17 @@
       azure_rm_resourcegroup:
           name: "{{ resource_group_vm }}"
           location: "{{ location }}"
+          
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: "{{ resource_group_vm }}"
+        allocation_method: Static
+        name: myPublicIP
+      register: output_ip_address
+      
+    - name: Dump public IP for VM which will be created
+      debug:
+        msg: "The public IP is {{ output_ip_address.state.ip_address }}."
 
     - name: Create VM
       azure_rm_virtualmachine:
@@ -72,7 +73,7 @@
       
     - name: Dump public IP for VM which will be created
       debug:
-        msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.publicIPAddress }}."
+        msg: "The public IP is {{  output_ip_address.state.ip_address }}."
         
 #    - name: add azure vm into host
 #      add_host:         
