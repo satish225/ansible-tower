@@ -83,9 +83,9 @@
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
         
-    - name: Pause for 1 minutes after vm build
+    - name: Pause for 3 minutes after vm build
       pause:
-        minutes: 1
+        minutes: 3
 ### Added for user creation 
 - hosts: "{{ vm_name }}"
   remote_user: ansibletower
