@@ -103,6 +103,7 @@
       name: "{{ uusername }}"
       password: "{{ upassword | password_hash('sha512') }}"  
 #### Utilities installation
+hosts: myazure_group
 - name: azure host
   vars:
     vm_name: MyTestVm
