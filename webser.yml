@@ -1,4 +1,4 @@
-# Description
+
 # Prequisite
 # ===========
 - name: Create Azure VM
@@ -42,17 +42,6 @@
       azure_rm_resourcegroup:
           name: "{{ resource_group_vm }}"
           location: "{{ location }}"
-          
-    - name: Create public IP address
-      azure_rm_publicipaddress:
-        resource_group: "{{ resource_group_vm }}"
-        allocation_method: Static
-        name: myPublicIP
-      register: output_ip_address
-      
-    - name: Dump public IP for VM which will be created
-      debug:
-        msg: "The public IP is {{ output_ip_address.state.ip_address }}."
 
     - name: Create VM
       azure_rm_virtualmachine:
@@ -73,20 +62,20 @@
       
     - name: Dump public IP for VM which will be created
       debug:
-        msg: "The public IP is {{  output_ip_address.state.ip_address }}."
+        msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress }}."
         
-#    - name: add azure vm into host
-#      add_host:         
-#        name: MyTestVm
-#        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.privateIPAddress }}'
-#       ansible_connection: ssh  # not guaranteed to have sshpass...
-#       ansible_user: "{{ admin_username }}"
-#       ansible_password: "{{ admin_password }}"
-#       ansible_host_key_checking: false
+    - name: add azure vm into host
+      add_host:         
+        name: "{{ vm_name }}"
+        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress }}'
+        ansible_connection: ssh  # not guaranteed to have sshpass...
+        ansible_user: "{{ admin_username }}"
+        ansible_password: "{{ admin_password }}"
+        ansible_host_key_checking: false
         
-    - name: Pause for 1 minutes after vm build
+    - name: Pause for 2 minutes after vm build
       pause:
-        minutes: 1
+        minutes: 2
 ### Added for user creation 
 - hosts: "{{ vm_name }}"
   remote_user: ansibletower
