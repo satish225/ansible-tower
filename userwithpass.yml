@@ -1,0 +1,14 @@
+- hosts: all
+  user: root
+  vars:
+    # created with:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+    upassword: $1$SomeSalt$UqddPX3r4kH3UL5jq5/ZI.
+    uusername: Cfadmin
+tasks:
+- name: Creating user "{{ uusername }}" with admin access
+  user: 
+    name: {{ uusername }}
+    password: {{ upassword | password_hash('sha512') }}
+    groups: admin append=yes
+  when:  assigned_role  == "yes"
