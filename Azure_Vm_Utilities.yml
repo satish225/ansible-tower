@@ -86,7 +86,7 @@
     # created with:
     # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
     upassword: Cfadmin@1234
-    uusername: Cfadmin
+    uusername: cfadmin
   tasks:
   - name: Creating user "{{ uusername }}" with admin access
     user: 
