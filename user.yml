@@ -172,9 +172,9 @@
   - name: Download appsody
     get_url:
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody-0.6.5-1.x86_64.rpm
-      dest: /etc/appsody/
+      state: present
       mode: '0440'
   - name: install appsody
     package:
-      name: appsody-0.6.5-1.x86_64.rpm
+      name: ./appsody-0.6.5-1.x86_64.rpm
       state: present
