@@ -173,7 +173,7 @@
     get_url:
       url: wget https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
       dest: /home/ansibletower
-      mode: '0655'
+      mode: '0755'
   - name: install appsody
     package:
       name: ./appsody_0.6.5_amd64.deb
