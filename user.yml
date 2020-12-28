@@ -170,12 +170,13 @@
       name: kubelet
       enabled: yes
   - name: Download appsody
-    become_method: sudo
     get_url:
+    become_method: sudo
       url: wget https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
       dest: /home
       mode: '0755'
   - name: install appsody
-    package:
+    become_method: sudo
+    apt:
       name: ./appsody_0.6.5_amd64.deb
       state: present
