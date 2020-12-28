@@ -172,7 +172,7 @@
   - name: Download appsody
     get_url:
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody-0.6.5-1.x86_64.rpm
-      state: present
+      dest: /home/ansibletower
       mode: '0440'
   - name: install appsody
     package:
