@@ -1,29 +1,180 @@
----
-- hosts: all
+
+# Prequisite
+# ===========
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    resource_group_vm: MyAzure_group
+    vnet_name: myVentName
+    subnet_name: mysubNet
+    vm_name: MyTestVm
+    location: eastus
+    repo_url: https://github.com/yungezz/helloworld.git
+    workspace: ~/src/helloworld
+    admin_username: ansibletower
+    admin_password: Ansibletower@123
+
+#  roles:
+#    - azure.azure_preview_modules
+  tasks:
+
+    - name: Create a resource group for vnet
+      azure_rm_resourcegroup:
+          name: "{{ resource_group_vm }}"
+          location: "{{ location }}"
+
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group_vm }}"
+        name: "{{ vnet_name }}"
+        address_prefixes: "10.0.0.0/16"
+        
+    - name: Add subnet
+      azure_rm_subnet:
+        resource_group: "{{ resource_group_vm }}"
+        name: "{{ subnet_name }}"
+        address_prefix: "10.0.1.0/24"
+        virtual_network: "{{ vnet_name }}"
+
+    - name: Create a resource group for vm
+      azure_rm_resourcegroup:
+          name: "{{ resource_group_vm }}"
+          location: "{{ location }}"
+
+    - name: Create VM
+      azure_rm_virtualmachine:
+        resource_group: "{{ resource_group_vm }}"
+        name: "{{ vm_name }}"
+        vm_size: Standard_DS1_v2
+        admin_username: "{{ admin_username }}"
+        admin_password: "{{ admin_password }}"
+        virtual_network_name: "{{ vnet_name }}"
+        subnet_name: "{{ subnet_name }}"
+        public_ip_allocation_method: Static
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: 16.04-LTS
+          version: latest
+      register: output
+      
+    - name: Dump public IP for VM which will be created
+      debug:
+        msg: "The public IP is {{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress }}."
+        
+    - name: add azure vm into host
+      add_host:         
+        name: "{{ vm_name }}"
+        ansible_host: '{{ output.ansible_facts.azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress }}'
+        ansible_connection: ssh  # not guaranteed to have sshpass...
+        ansible_user: "{{ admin_username }}"
+        ansible_password: "{{ admin_password }}"
+        ansible_host_key_checking: false
+        
+    - name: Pause for 2 minutes after vm build
+      pause:
+        minutes: 2
+### Added for user creation 
+- hosts: "{{ vm_name }}"
   remote_user: ansibletower
   become: yes
   become_method: sudo
-  gather_facts: no
-  connection: ssh
+  become_user: root
+  vars:
+    # created with:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+    upassword: Cfadmin@1234
+    uusername: cfadmin
   tasks:
-  - name: Add the user 'Nttuser1' with a specific uid and a primary group of 'Nttdata'
-    user:
-      name: Nttuser1
-      comment: Devops Engineer
-      uid: 1050
-  - name: Add group "Nttdata" to remote server
-    group:
-      name: Nttdata
-      gid: 2020
+  - name: Creating user "{{ uusername }}" with admin access
+    user: 
+      name: "{{ uusername }}"
+      password: "{{ upassword | password_hash('sha512') }}"  
+#### Utilities installation
+- name: azure host
+  vars:
+    vm_name: MyTestVm
+    admin_username: ansibletower
+    admin_password: Ansibletower@123  
+    credentials:
+      host: "{{ vm_name }}"
+      username: "{{ admin_username }}"
+      password: "{{ admin_password }}"
+  hosts: "{{ vm_name }}"
+  remote_user: "{{ admin_username }}"
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+  tasks: 
+  - name: Make the Swap inactive
+    command: swapoff -a
+  - name: Remove Swap entry from /etc/fstab.
+    lineinfile:
+      dest: /etc/fstab
+      regexp: swap
+      state: absent
+  - name: Installing Prerequisites for Kubernetes
+    apt: 
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - vim
+        - software-properties-common
       state: present
-  - name: Add the user 'Nttuser2' with a bash shell, appending the group 'Nttdata' and 'developers' to the user's groups
-    user:
-      name: Nttuser2
-      shell: /bin/bash
-  - name: Add group "developers" to remote server
-    group:
-      name: developers
-      gid: 2021
+  - name: Add Docker’s official GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
       state: present
-
-    
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      filename: docker
+      mode: 0600
+  - name: Install Docker Engine.
+    apt: 
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      state: present
+  - name: Enable service docker, and enable persistently
+    service: 
+      name: docker
+      enabled: yes
+  - name: Add Google official GPG key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+  - name: Add Kubernetes Repository
+    apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main 
+      state: present
+      filename: kubernetes
+      mode: 0600
+  - name: Installing Kubernetes Cluster Packages.
+    apt: 
+      name:
+        - kubeadm
+        - kubectl
+        - kubelet
+      state: present
+  - name: Enable service kubelet, and enable persistently
+    service: 
+      name: kubelet
+      enabled: yes
+  - name: Download appsody
+    get_url:
+      url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody-0.6.5-1.x86_64.rpm
+      dest: /etc/appsody
+      mode: '0440'
+  - name: install ntpdate
+    package:
+      name: appsody-0.6.5-1.x86_64.rpm
+      state: present
