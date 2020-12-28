@@ -2,7 +2,6 @@
   remote_user: ansibletower
   become: yes
   become_method: sudo
-  become_user: root
   tasks:
   - name: Download appsody package
     get_url:
