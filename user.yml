@@ -180,5 +180,5 @@
   - name: install appsody
     become_method: sudo
     apt:
-      name: ./appsody_0.6.5_amd64.deb
+      name: appsody_0.6.5_amd64.deb
       state: present
