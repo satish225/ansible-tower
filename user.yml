@@ -170,7 +170,6 @@
       name: kubelet
       enabled: yes
   - name: Download appsody
-    become: yes
     get_url:
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
       dest: /home/ansibletower
@@ -179,6 +178,9 @@
       owner: ansibletower
   - name: install appsody
     become_method: sudo
+    become_user: root
+    group: ansibletower
+    owner: ansibletower
     apt:
-      name: appsody_0.6.5_amd64.deb
+      name: /home/ansibletower/appsody_0.6.5_amd64.deb
       state: present
