@@ -178,7 +178,7 @@
       group: ansibletower
       owner: ansibletower
   - name: install appsody
-    become: yes
+    become_method: sudo
     apt:
-      name: /home/ansibletower/appsody_0.6.5_amd64.deb
+      name: ./appsody_0.6.5_amd64.deb
       state: present
