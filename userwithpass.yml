@@ -118,14 +118,14 @@
   - name: Install appsody .deb package
     apt:
       deb: /tmp/appsody_0.6.5_amd64.deb
-  - name: Install helm chart from a git repo
+  - name: Install helm chart
     community.general.helm:
+      host: localhost
       chart:
+        name: memcached
+        version: 0.4.0
         source:
-          type: git
-          location: https://github.com/user/helm-chart.git
+          type: repo
+          location: https://kubernetes-charts.storage.googleapis.com
     state: present
-    name: my-example
-    namespace: default
-    values:
-      foo: "bar"
+    name: my-memcached
