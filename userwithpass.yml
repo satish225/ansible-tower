@@ -115,16 +115,11 @@
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
       dest: /tmp/appsody_0.6.5_amd64.deb
       mode: '0755'
-#  - name: install appsody
-#   apt:
-#      name: "{​​{​​ /home/ansibletower/appsody_0.6.5_amd64.deb }​​}​​"
-#      state: present
-  - name: Install a .deb package
+  - name: Install appsody .deb package
     apt:
       deb: /tmp/appsody_0.6.5_amd64.deb
   - name: Install helm chart from a git repo
     community.general.helm:
-      host: localhost
       chart:
         source:
           type: git
