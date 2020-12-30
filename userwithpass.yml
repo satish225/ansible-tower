@@ -113,14 +113,13 @@
     become: yes
     get_url:
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
-      dest: /home/ansibletower
+      dest: /tmp/mypackage.deb
       mode: '0755'
-      group: ansibletower
-      owner: ansibletower
-  - name: install appsody
+#  - name: install appsody
+#   apt:
+#      name: "{​​{​​ /home/ansibletower/appsody_0.6.5_amd64.deb }​​}​​"
+#      state: present
+  - name: Install a .deb package
     apt:
-      name: "{{ packages }}"
-      state: present
-    vars:
-      packages:
-        name: 'appsody_0.6.5_amd64.deb'
+      deb: /tmp/mypackage.deb
+    state: present
