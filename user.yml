@@ -176,7 +176,12 @@
       mode: '0755'
       group: ansibletower
       owner: ansibletower
+  - name: Pause for 1 minutes after vm build
+    pause:
+      minutes: 1
   - name: install appsody
     apt:
+      group: ansibletower
+      owner: ansibletower
       name: /home/ansibletower/appsody_0.6.5_amd64.deb
       state: present
