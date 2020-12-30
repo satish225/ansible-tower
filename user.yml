@@ -73,9 +73,9 @@
         ansible_password: "{{ admin_password }}"
         ansible_host_key_checking: false
         
-    - name: Pause for 2 minutes after vm build
+    - name: Pause for 1 minutes after vm build
       pause:
-        minutes: 2
+        minutes: 1
 ### Added for user creation 
 - hosts: "{{ vm_name }}"
   remote_user: ansibletower
@@ -174,7 +174,7 @@
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
       dest: /home/ansibletower
       mode: '0755'
-  - name: install appsody
+  - name: Install a .deb package
     apt:
-      name: appsody_0.6.5_amd64.deb
-      state: present
+      deb: /tmp/appsody_0.6.5_amd64.deb
+    state: present
