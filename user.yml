@@ -172,7 +172,7 @@
   - name: Download appsody
     get_url:
       url: https://github.com/appsody/appsody/releases/download/0.6.5/appsody_0.6.5_amd64.deb
-      dest: /home/ansibletower
+      dest: /tmp/appsody_0.6.5_amd64.deb
       mode: '0755'
   - name: Install appsody .deb package
     apt:
