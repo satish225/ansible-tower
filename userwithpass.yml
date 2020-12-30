@@ -122,3 +122,15 @@
   - name: Install a .deb package
     apt:
       deb: /tmp/appsody_0.6.5_amd64.deb
+  - name: Install helm chart from a git repo
+    community.general.helm:
+      host: localhost
+      chart:
+        source:
+          type: git
+          location: https://github.com/user/helm-chart.git
+    state: present
+    name: my-example
+    namespace: default
+    values:
+      foo: "bar"
