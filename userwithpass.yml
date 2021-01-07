@@ -180,3 +180,6 @@
     get_url: 
       url: deb https://github.com/kabanero-io/kabanero-stack-hub/releases/download/0.9.0/kabanero-stack-hub-index.yaml
       dest: /tmp/kabanero-stack-hub-index.yaml
+  - name: Installing kabanero
+    apt:
+      deb: /tmp/kabanero-stack-hub-index.yaml
