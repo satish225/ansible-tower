@@ -184,4 +184,3 @@
     unarchive:
       src: /tmp/oc.tar.gz
       dest: /usr/local/bin
-      remote_src: yes
