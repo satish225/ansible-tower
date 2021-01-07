@@ -176,7 +176,7 @@
   - name: Install appsody .deb package
     apt:
       deb: /tmp/appsody_0.6.5_amd64.deb
-  - name: Download Kabanaro package
+  - name: Download OC tar file
     get_url: 
       url: https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.4/linux/oc.tar.gz
       dest: /tmp
